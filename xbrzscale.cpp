@@ -89,23 +89,22 @@ int main(int argc, char* argv[]) {
 	}
 	
 	SDL_Surface* src_img = IMG_Load(in_file);
-  if (!src_img) {
-    fprintf(stderr, "Failed to load source image '%s': %s\n", in_file, IMG_GetError());
-    return 1;
-  }
+	if (!src_img) {
+		fprintf(stderr, "Failed to load source image '%s': %s\n", in_file, IMG_GetError());
+		return 1;
+	}
 
-//  displayImage(src_img, "Source image");
+	//displayImage(src_img, "Source image");
 
-  libxbrzscale::setEnableOutput(true);
+	//libxbrzscale::setEnableOutput(true);
 	SDL_Surface* dst_img = libxbrzscale::scale(src_img,scale);
 	if(!dst_img)return 1;
+	//displayImage(dst_img, "Image after color conversion");
 
-	//  displayImage(dst_img, "Image after color conversion");
+	IMG_SavePNG(dst_img,out_file);
 
-  IMG_SavePNG(dst_img,out_file);
+	SDL_FreeSurface(dst_img);
 
-  SDL_FreeSurface(dst_img);
-
-  SDL_Quit();
-  return 0;
+	SDL_Quit();
+	return 0;
 }
